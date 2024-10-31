@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:12 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:51:11 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 11:00:01 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_line(char *line_buffer)
 	char	*line;
 
 	i = 0;
-	while (line_buffer[i] != '\n' || line_buffer[i] != "\0")
+	while (line_buffer[i] != '\n' || line_buffer[i] != '\0')
 		i++;
 	line = ft_calloc((size_t)i + 1, 1);
 	if (!line)
@@ -46,7 +46,7 @@ char	*get_line(char *line_buffer)
 char	*append_line(int fd)
 {
 	char	*line_buffer;
-	size_t	bytes_read;
+	int		bytes_read;
 	char	*temp_buffer;
 
 	temp_buffer = ft_calloc(BUFFER_SIZE + 1, 1);
@@ -79,6 +79,7 @@ char	*get_next_line(int fd)
 	char	*line;
 	char	*line_buffer;
 
+	line_buffer = NULL;
 	if (BUFFER_SIZE <= 0 || fd <= 0)
 		return (NULL);
 	line = append_line(fd);

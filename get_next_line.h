@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:56 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:40:33 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 10:57:30 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # include <limits.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
