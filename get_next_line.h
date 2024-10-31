@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:56 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:57:30 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 12:06:34 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void	*ft_calloc(size_t num, size_t size);
 char	*ft_strchr(const char *str, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *c);
 
 #endif

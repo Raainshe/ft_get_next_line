@@ -6,34 +6,28 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:49:19 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:54:38 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 12:15:49 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*s2;
-
-	i = 0;
-	s2 = (unsigned char *)s;
-	while (i < n)
-	{
-		s2[i] = 0;
-		i++;
-	}
-}
-
 void	*ft_calloc(size_t num, size_t size)
 {
-	char	*mem;
+	size_t			total_size;
+	unsigned char	*mem;
+	size_t			i;
 
-	mem = malloc(num * size);
+	total_size = num * size;
+	i = 0;
+	mem = malloc(total_size);
 	if (!mem)
 		return (NULL);
-	ft_bzero(mem, num * size);
+	while (i < total_size)
+	{
+		mem[i] = 0;
+		i++;
+	}
 	return (mem);
 }
 

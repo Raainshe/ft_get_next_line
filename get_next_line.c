@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:12 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 11:00:01 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 12:07:28 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,60 +32,93 @@ char	*get_line(char *line_buffer)
 	char	*line;
 
 	i = 0;
-	while (line_buffer[i] != '\n' || line_buffer[i] != '\0')
+	if (!line_buffer[0])
+		return (NULL);
+	while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
 		i++;
-	line = ft_calloc((size_t)i + 1, 1);
+	if (line_buffer[i] == '\n')
+		i++;
+	line = ft_substr(line_buffer, 0, i);
 	if (!line)
 		return (NULL);
-	line = ft_substr(line_buffer, 0, i);
-	if (line_buffer[i] == '\n')
-		line[i] = '\n';
 	return (line);
 }
 
-char	*append_line(int fd)
+char	*update_buffer(char *line_buffer)
 {
-	char	*line_buffer;
-	int		bytes_read;
-	char	*temp_buffer;
+	int		i;
+	char	*new_buffer;
+	int		j;
 
-	temp_buffer = ft_calloc(BUFFER_SIZE + 1, 1);
+	i = 0;
+	while (line_buffer[i] != '\0' && line_buffer[i] != '\n')
+		i++;
+	if (line_buffer[i] == '\n')
+		i++;
+	if (!line_buffer[i])
+	{
+		free(line_buffer);
+		return (NULL);
+	}
+	new_buffer = ft_calloc((ft_strlen(line_buffer) - i + 1), sizeof(char));
+	if (!new_buffer)
+	{
+		free(line_buffer);
+		return (NULL);
+	}
+	j = 0;
+	while (line_buffer[i])
+		new_buffer[j++] = line_buffer[i++];
+	free(line_buffer);
+	return (new_buffer);
+}
+
+char	*read_file(int fd, char *line_buffer)
+{
+	char	*temp_buffer;
+	int		bytes_read;
+
+	temp_buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!temp_buffer)
 		return (NULL);
-	line_buffer = ft_calloc(BUFFER_SIZE + 1, 1);
-	if (!line_buffer)
+	bytes_read = 1;
+	while (bytes_read > 0 && !ft_strchr(line_buffer, '\n'))
 	{
-		free(temp_buffer);
-		return (NULL);
-	}
-	while ((bytes_read = read(fd, temp_buffer, BUFFER_SIZE)) > 0)
-	{
+		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free(temp_buffer);
+			free(line_buffer);
+			return (NULL);
+		}
 		temp_buffer[bytes_read] = '\0';
 		line_buffer = ft_join_free(line_buffer, temp_buffer);
-		if (ft_strchr(temp_buffer, '\n'))
-			break ;
+		if (!line_buffer)
+		{
+			free(temp_buffer);
+			return (NULL);
+		}
 	}
-	free(temp_buffer);
-	if (bytes_read == -1)
-	{
-		free(temp_buffer);
-		return (NULL);
-	}
-	return (line_buffer);
+	return (free(temp_buffer), line_buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*line;
-	char	*line_buffer;
+	static char	*line_buffer;
+	char		*line;
 
-	line_buffer = NULL;
-	if (BUFFER_SIZE <= 0 || fd <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = append_line(fd);
-	if (!line)
+	if (!line_buffer)
+	{
+		line_buffer = ft_calloc(1, sizeof(char));
+		if (!line_buffer)
+			return (NULL);
+	}
+	line_buffer = read_file(fd, line_buffer);
+	if (!line_buffer)
 		return (NULL);
 	line = get_line(line_buffer);
-	free(line_buffer);
+	line_buffer = update_buffer(line_buffer);
 	return (line);
 }
