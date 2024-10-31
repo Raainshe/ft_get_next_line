@@ -6,11 +6,25 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:49:19 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:40:17 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 10:54:38 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*s2;
+
+	i = 0;
+	s2 = (unsigned char *)s;
+	while (i < n)
+	{
+		s2[i] = 0;
+		i++;
+	}
+}
 
 void	*ft_calloc(size_t num, size_t size)
 {
@@ -21,6 +35,38 @@ void	*ft_calloc(size_t num, size_t size)
 		return (NULL);
 	ft_bzero(mem, num * size);
 	return (mem);
+}
+
+size_t	ft_strlen(const char *c)
+{
+	size_t	i;
+
+	i = 0;
+	while (c[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strdup(const char *str)
+{
+	size_t	s_len;
+	size_t	i;
+	char	*dup;
+
+	s_len = ft_strlen((char *)str);
+	dup = malloc(s_len + 1);
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (i < s_len)
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
 
 //Is used to locate the first occurrence of a specified character in a string.
