@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:12 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 10:43:53 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/10/31 10:51:11 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,29 @@ char	*append_line(int fd)
 	{
 		temp_buffer[bytes_read] = '\0';
 		line_buffer = ft_join_free(line_buffer, temp_buffer);
+		if (ft_strchr(temp_buffer, '\n'))
+			break ;
 	}
+	free(temp_buffer);
+	if (bytes_read == -1)
+	{
+		free(temp_buffer);
+		return (NULL);
+	}
+	return (line_buffer);
 }
 
 char	*get_next_line(int fd)
 {
 	char	*line;
+	char	*line_buffer;
 
 	if (BUFFER_SIZE <= 0 || fd <= 0)
 		return (NULL);
 	line = append_line(fd);
 	if (!line)
 		return (NULL);
+	line = get_line(line_buffer);
+	free(line_buffer);
 	return (line);
 }
