@@ -6,30 +6,11 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:49:19 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 12:15:49 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:39:05 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	size_t			total_size;
-	unsigned char	*mem;
-	size_t			i;
-
-	total_size = num * size;
-	i = 0;
-	mem = malloc(total_size);
-	if (!mem)
-		return (NULL);
-	while (i < total_size)
-	{
-		mem[i] = 0;
-		i++;
-	}
-	return (mem);
-}
 
 size_t	ft_strlen(const char *c)
 {
