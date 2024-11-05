@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:12 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/11/04 14:30:41 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/11/05 14:38:47 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ char	*read_file(int fd, char *line_buffer)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free(temp_buffer), free(line_buffer), NULL);
+			return (free(line_buffer), free(temp_buffer), NULL);
+		temp_buffer[bytes_read] = '\0';
 		if (bytes_read == 0)
 			break ;
-		temp_buffer[bytes_read] = '\0';
 		line_buffer = ft_join_free(line_buffer, temp_buffer);
 		if (!line_buffer)
 			return (free(temp_buffer), (NULL));
@@ -116,8 +116,12 @@ char	*get_next_line(int fd)
 	if (!line_buffer)
 		return (NULL);
 	line = get_my_line(line_buffer);
-	if (!line)
-		return (free(line_buffer), NULL);
+	if (!line || line_buffer[0] == '\0')
+	{
+		free(line_buffer);
+		line_buffer = NULL;
+		return (NULL);
+	}
 	line_buffer = update_buffer(line_buffer);
 	return (line);
 }
