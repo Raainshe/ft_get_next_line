@@ -6,7 +6,7 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:49:19 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/11/04 11:39:05 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/11/08 18:25:59 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		joined[i] = (char)s2[i - s1_len];
 		i++;
 	}
+	free((char *)s2);
 	joined[i] = '\0';
 	return (joined);
 }

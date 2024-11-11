@@ -6,14 +6,13 @@
 /*   By: rmakoni <rmakoni@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:04:56 by rmakoni           #+#    #+#             */
-/*   Updated: 2024/10/31 13:23:46 by rmakoni          ###   ########.fr       */
+/*   Updated: 2024/11/11 15:00:50 by rmakoni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -27,5 +26,6 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *c);
+char	*ft_strdup(const char *str);
 
 #endif
